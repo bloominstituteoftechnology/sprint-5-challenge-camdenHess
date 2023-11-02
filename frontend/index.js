@@ -68,22 +68,28 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
           card.appendChild(mentorsDropCard)
           card.appendChild(mentorsListCard)
           container.appendChild(card)
-        
-          card.addEventListener('click', evt => {
-            let selected = document.querySelectorAll('.selected')
 
-            if(selected !== null) {
+          card.addEventListener('click', evt => {
+            let selected = document.querySelector('.selected')
+            
+            if(selected) {
+              //console.log('selected')
               if (card.classList.contains('selected')) {
+                //console.log('same card')
                 card.classList.remove('selected')
-                nameIdCard.textContent = fullName
-                document.querySelector('.info').textContent = 'No learner is selected'
+                nameIdCard.textContent = `${fullName}`
               } else{
-               selected.classList.remove('selected')
-               card.classList.add('selected')
-               nameIdCard.textContent = `${fullName}, ID ${id}`
-               document.querySelector('.info').textContent = `The selected learner is ${fullName}`
+                //console.log('not same card')
+                //selected.firstChild.textContent = fullName
+                selected.classList.remove('selected')
+                card.classList.add('selected')
+                nameIdCard.textContent = `${fullName}, ID ${id}`
+              }
+            } else {
+              //console.log('not selected')
+              card.classList.add('selected')
+              nameIdCard.textContent = `${fullName}, ID ${id}`
             }
-          }
           })
 
         })
