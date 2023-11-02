@@ -6,6 +6,7 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
   footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
 
 
+  const getAllh3 = () => document.querySelectorAll('.h3')
   //Bringing in the data from the URL's
   let urlA = 'http://localhost:3003/api/learners'
   let urlB = 'http://localhost:3003/api/mentors'
@@ -42,7 +43,7 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
         let container = document.querySelector('.cards')
 
         //Creating + Adding Card
-        studentArray.forEach(student => {
+        studentArray.forEach((student, i) => {
           let card = document.createElement('div')
           let nameIdCard = document.createElement('h3')
           let emailCard = document.createElement('div')
@@ -78,20 +79,44 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
                 //console.log('same card')
                 card.classList.remove('selected')
                 nameIdCard.textContent = `${fullName}`
+
+                document.querySelector('.info').textContent = 'No learner is selected'
               } else{
                 //console.log('not same card')
                 //selected.firstChild.textContent = fullName
                 selected.classList.remove('selected')
                 card.classList.add('selected')
                 nameIdCard.textContent = `${fullName}, ID ${id}`
+
+                document.querySelector('.info').textContent = `The selected learner is ${fullName}`
               }
             } else {
               //console.log('not selected')
               card.classList.add('selected')
               nameIdCard.textContent = `${fullName}, ID ${id}`
+
+              document.querySelector('.info').textContent = `The selected learner is ${fullName}`
             }
           })
 
+          mentorsDropCard.addEventListener('click', evt => {
+            
+            if (mentorsDropCard.classList.contains('open') && card.classList.contains('selected')) {
+              evt.stopPropagation()
+              mentorsDropCard.classList.remove('open')
+              mentorsDropCard.classList.add('closed')
+            } else if (mentorsDropCard.classList.contains('open')) {
+              mentorsDropCard.classList.remove('open')
+              mentorsDropCard.classList.add('closed')
+            } else if (mentorsDropCard.classList.contains('closed') && card.classList.contains('selected')){
+              evt.stopPropagation()
+              mentorsDropCard.classList.remove('closed')
+              mentorsDropCard.classList.add('open')
+            } else {
+              mentorsDropCard.classList.remove('closed')
+              mentorsDropCard.classList.add('open')
+            }
+          })
         })
 
       })
