@@ -83,7 +83,12 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
                 document.querySelector('.info').textContent = 'No learner is selected'
               } else{
                 //console.log('not same card')
-                //selected.firstChild.textContent = fullName
+                console.log(card)
+                console.log(selected)
+                // if (document.querySelectorAll('.selected').length === 1) {
+                  
+                // }
+                card.firstChild.textContent = fullName
                 selected.classList.remove('selected')
                 card.classList.add('selected')
                 nameIdCard.textContent = `${fullName}, ID ${id}`
