@@ -6,7 +6,8 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
   footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
 
 
-  const getAllh3 = () => document.querySelectorAll('.h3')
+  let idxArray = []
+  
   //Bringing in the data from the URL's
   let urlA = 'http://localhost:3003/api/learners'
   let urlB = 'http://localhost:3003/api/mentors'
@@ -70,42 +71,33 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
           card.appendChild(mentorsListCard)
           container.appendChild(card)
 
+
           card.addEventListener('click', evt => {
             let selected = document.querySelector('.selected')
-            
             if(selected) {
-              //console.log('selected')
               if (card.classList.contains('selected')) {
-                //console.log('same card')
                 card.classList.remove('selected')
                 nameIdCard.textContent = `${fullName}`
-
                 document.querySelector('.info').textContent = 'No learner is selected'
               } else{
-                //console.log('not same card')
-                console.log(card)
-                console.log(selected)
-                // if (document.querySelectorAll('.selected').length === 1) {
-                  
-                // }
-                card.firstChild.textContent = fullName
+                idxArray.push(i)
+                let lastIdx = idxArray[idxArray.length -2]
+                document.querySelector('.selected').firstChild.textContent = studentArray[lastIdx].fullName
                 selected.classList.remove('selected')
                 card.classList.add('selected')
                 nameIdCard.textContent = `${fullName}, ID ${id}`
-
                 document.querySelector('.info').textContent = `The selected learner is ${fullName}`
               }
             } else {
-              //console.log('not selected')
               card.classList.add('selected')
               nameIdCard.textContent = `${fullName}, ID ${id}`
-
+              idxArray.push(i)
               document.querySelector('.info').textContent = `The selected learner is ${fullName}`
             }
           })
 
+          
           mentorsDropCard.addEventListener('click', evt => {
-            
             if (mentorsDropCard.classList.contains('open') && card.classList.contains('selected')) {
               evt.stopPropagation()
               mentorsDropCard.classList.remove('open')
@@ -123,10 +115,7 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
             }
           })
         })
-
       })
-      
-
 
 
   // 👆 WORK WORK ABOVE THIS LINE 👆
